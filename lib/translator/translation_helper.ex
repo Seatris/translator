@@ -1,7 +1,17 @@
 defmodule Translator.TranslationHelpers do
   @default_field :translation
 
+  def translate(%Ecto.Changeset{} = changeset, field) when is_atom(field), do: translate(changeset, field, @default_field)
+  def translate(%Ecto.Changeset{} = changeset, field, assoc) when is_atom(field) do
+    if Map.has_key?(changeset.changes, field) do
+      Map.get(changeset.changes, field)
+    else
+      ""
+    end
+  end
+
   def translate(%Ecto.Changeset{} = changeset, model, field), do: translate(changeset, model, field, @default_field)
+
   def translate(%Ecto.Changeset{} = changeset, model, field, assoc) do
     if Map.has_key?(changeset.changes, field) do
       Map.get(changeset.changes, field)
