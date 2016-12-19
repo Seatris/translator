@@ -36,7 +36,9 @@ defmodule Translator.TranslationModel do
           locale: locale
         }
 
-        translation_params = Enum.into @required_fields ++ @optional_fields, default_params, fn(f) ->
+        existing_fields = Enum.filter(@required_fields ++ @optional_fields, fn(f)-> Map.has_key?(parent_params, to_string(f)) end)
+
+        translation_params = Enum.into existing_fields, default_params, fn(f) ->
           {f, parent_params[to_string(f)]}
         end
 
