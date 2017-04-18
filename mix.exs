@@ -9,7 +9,7 @@ defmodule Translator.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps, 
+     deps: deps,
 
      # Hex
      description: description,
@@ -34,7 +34,7 @@ defmodule Translator.Mixfile do
   end
 
   defp deps do
-    [{:ecto, "~> 2.0.0-rc"},
+    [{:ecto, "~> 2.1.4"},
      {:ex_doc, "~> 0.11", only: :docs}]
   end
 end
