@@ -3,7 +3,7 @@ defmodule Translator.TranslationModel do
     quote location: :keep do
       unquote(config(opts))
 
-      parent = Module.split(@belongs_to) |> List.last |> Macro.underscore
+      parent = Module.split(@belongs_to) |> List.last() |> Macro.underscore()
       @parent_atom String.to_atom(parent)
       @parent_id_field String.to_atom(parent <> "_id")
 
@@ -15,12 +15,12 @@ defmodule Translator.TranslationModel do
 
         belongs_to @parent_atom, @belongs_to
 
-        timestamps
+        timestamps()
       end
 
       def changeset(translation, params \\ %{}) do
         required_fields = @required_fields ++ [:locale, @parent_id_field]
-        translation
+        translation()
         |> cast(params, required_fields ++ @optional_fields)
         |> validate_required(required_fields)
         |> foreign_key_constraint(@parent_id_field)
