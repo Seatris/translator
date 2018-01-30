@@ -20,7 +20,7 @@ defmodule Translator.TranslationModel do
 
       def changeset(translation, params \\ %{}) do
         required_fields = @required_fields ++ [:locale, @parent_id_field]
-        translation()
+        translation
         |> cast(params, required_fields ++ @optional_fields)
         |> validate_required(required_fields)
         |> foreign_key_constraint(@parent_id_field)
